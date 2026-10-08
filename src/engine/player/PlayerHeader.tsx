@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCourse } from '../state/CourseContext';
 import {
   Volume2,
@@ -12,6 +12,7 @@ import {
   Package,
   Check,
   Loader2,
+  RefreshCw,
 } from 'lucide-react';
 
 interface PlayerHeaderProps {
@@ -38,6 +39,41 @@ export const PlayerHeader: React.FC<PlayerHeaderProps> = ({
 
   const [isExporting, setIsExporting] = useState(false);
   const [exportSuccessMsg, setExportSuccessMsg] = useState<string | null>(null);
+
+  // Engine Update States
+  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [isUpdatingEngine, setIsUpdatingEngine] = useState(false);
+
+  // Check for updates from GitHub in the background
+  useEffect(() => {
+    fetch('/api/check-update')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.updateAvailable) {
+          setUpdateAvailable(true);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const handleApplyEngineUpdate = async () => {
+    if (isUpdatingEngine) return;
+    setIsUpdatingEngine(true);
+    try {
+      const res = await fetch('/api/update-engine', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        alert('✅ SCORM Studio Engine updated successfully! Reloading...');
+        window.location.reload();
+      } else {
+        alert('Notice: ' + (data.error || 'Update completed.'));
+      }
+    } catch {
+      alert('Could not apply update automatically. Double-click Update-Engine.cmd to update.');
+    } finally {
+      setIsUpdatingEngine(false);
+    }
+  };
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -117,6 +153,19 @@ export const PlayerHeader: React.FC<PlayerHeaderProps> = ({
 
       {/* Right: Tools & Controls */}
       <div className="flex items-center gap-2">
+        {/* Engine Update Notification Pill (If developers pushed changes) */}
+        {updateAvailable && (
+          <button
+            onClick={handleApplyEngineUpdate}
+            disabled={isUpdatingEngine}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-cyan-400 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-200 text-xs font-bold transition-all animate-pulse"
+            title="Click to update core engine and components with latest developer updates"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${isUpdatingEngine ? 'animate-spin' : ''}`} />
+            <span>{isUpdatingEngine ? 'Updating...' : 'Update Engine'}</span>
+          </button>
+        )}
+
         {/* 1-Click SCORM Export Button (Zero Terminal!) */}
         <button
           onClick={handle1ClickExport}

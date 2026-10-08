@@ -127,6 +127,28 @@ Upload this zip directly to **SCORM Cloud** or your corporate LMS.
 
 ---
 
+## 🖥️ Zero-Terminal Integrator Experience
+
+Integrators do **not** need to open a terminal or run npm commands:
+1. **Double-Click `Launch-SCORM-Studio.cmd`**:
+   - Silently starts the local preview in the background.
+   - Opens VS Code in the course directory.
+   - Opens the 16:9 stage in **Desktop App Mode** (Edge/Chrome app window with zero URL bars or browser tabs).
+2. **1-Click Packaging**: Click the green **`[ 📦 Export SCORM ]`** button directly in the stage header to build and save `.zip` packages to `exports/`.
+
+---
+
+## 🔄 How Integrators Update the Engine
+
+When developers push improvements, new components, or SCORM tweaks to GitHub, integrators can update with zero terminal commands:
+- **Method A (Automatic on launch):** `Launch-SCORM-Studio.cmd` silently syncs upstream engine updates every time it opens.
+- **Method B (In-Browser):** When developers push an update, an **`[ 🔄 Update Engine ]`** button appears in the top header. Clicking it pulls updates and reloads the stage.
+- **Method C (Double-click assistant):** Double-click **`Update-Engine.cmd`** in the root directory to run the visual updater.
+
+*Note: All engine updates are strictly separated from `course/`, guaranteeing that existing slides, quizzes, and assets are 100% safe from merge conflicts.*
+
+---
+
 ## 🛡️ SharePoint & OneDrive Integration Strategy
 
 To keep SharePoint sync instant and prevent file corruption:
