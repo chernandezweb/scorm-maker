@@ -1,0 +1,15 @@
+{
+  "id": "COURSE_CYBER_2026",
+  "title": "Cybersecurity Foundations: Phishing & Defense",
+  "version": "1.0.0",
+  "engineVersion": "1.0.0",
+  "scormStandard": "2004_4th_edition",
+  "passingScore": 75,
+  "theme": {
+    "primaryColor": "#2563eb",
+    "accentColor": "#f59e0b",
+    "backgroundColor": "#020617"
+  },
+  "author": "E-Learning Integrations Team",
+  "organization": "Enterprise Learning Solutions"
+}

@@ -1,0 +1,23 @@
+{
+  "slideId": "slide-01",
+  "duration": 8.5,
+  "generatedAt": "2026-10-08T03:26:20.929Z",
+  "cues": [
+    {
+      "word": "Welcome",
+      "time": 0.1
+    },
+    {
+      "word": "Briefing",
+      "time": 2.3
+    },
+    {
+      "word": "threats",
+      "time": 4.8
+    },
+    {
+      "word": "skills",
+      "time": 7.5
+    }
+  ]
+}
