@@ -68,15 +68,19 @@ A **pure code/AI framework** where courses are written in declarative TypeScript
 ### F. Interactive Component Catalog
 - **`<Slide>`:** Base slide wrapper with lighting and layout variants.
 - **`<Character>`:** Illustrated vector avatar with poses (`neutral`, `explaining`, `warning`, `celebrating`, `thinking`) and animated speech bubbles.
+- **`<AvatarVideo>`:** AI video presenter / talking-head avatar player with transparent WebM support and slide sync.
 - **`<Quiz>`:** SCORM 2004 assessment questions with instant feedback, XP rewards, and confetti explosion (`canvas-confetti`).
 - **`<SoftwareSim>`:** Interactive corporate Webmail client simulation with clickable red-flag hotspots and threat reporting.
 - **`<DiceGame>`:** 3D animated dice board game gamification with 8 checkpoint tiles, moving player token, and state bookmarking.
 - **`<AudioNarration>`:** Voiceover controller with Web Speech API preview fallback, audio element support, and navigation locking until narration ends.
 
-### G. ElevenLabs & Auto-Cue Pipeline
-- **File:** `scripts/generate-audio.js`
-- Extracts slide narration scripts and interfaces with ElevenLabs API.
-- Generates speech audio files and word/character timestamp alignments (`slide-XX-cues.json`), allowing UI elements to automatically appear when specific words are spoken.
+### G. ElevenLabs & Multimodal AI Studio (Audio, Images, Video, UI)
+- **Files:** `scripts/generate-media.js`, `src/components/AvatarVideo.tsx`, `src/engine/inspector/MediaStudioModal.tsx`
+- **1. Voiceover & Auto-Cues (Audio):** Extracts narration scripts, calls ElevenLabs TTS with word-level alignment timestamps (`slide-XX-cues.json`), and triggers on-screen element animations synchronously as specific words are spoken.
+- **2. AI Images & Character Poses:** Generates consistent character poses (Alex warning, thinking, celebrating), high-resolution corporate backdrops, and achievement badge vectors directly into `course/assets/images/` and `course/assets/characters/`.
+- **3. AI Video Presenters & Scenario Loops:** `<AvatarVideo>` component embeds talking-head AI presenters and animated scenario clips, with support for transparent WebM video floating naturally over slides.
+- **4. UI Software Simulations:** Generates interactive enterprise UI simulations (e.g. Outlook webmail client, cloud dashboards) with clickable inspection hotspots and educational feedback.
+- **In-Browser Studio:** Integrators can click the **"🎨 AI Media Studio"** button directly in the top header to view, generate, and copy ready-to-use JSX component code.
 
 ### H. Engine Update & Longevity System
 - **File:** `Update-Engine.cmd`, `src/engine/player/PlayerHeader.tsx` (`/api/check-update`, `/api/update-engine`)
@@ -106,10 +110,11 @@ scorm-maker/
 │   └── sample-storyboard.md          # Example input specification from learning strategist
 ├── scripts/
 │   ├── package-scorm.js              # SCORM 2004 4th Edition imsmanifest.xml & zip packager
-│   └── generate-audio.js             # ElevenLabs speech generation & cue alignment script
+│   ├── generate-audio.js             # ElevenLabs speech generation & cue alignment script
+│   └── generate-media.js             # Multimodal generator: Audio, Images, Video, UI
 ├── src/
-│   ├── engine/                       # SCORM wrapper, Mock LMS, Stage, Player, Tweak Overlay
-│   ├── components/                   # Character, Quiz, SoftwareSim, DiceGame, AudioNarration
+│   ├── engine/                       # SCORM wrapper, Mock LMS, Stage, Player, Tweak Overlay, MediaStudioModal
+│   ├── components/                   # Character, AvatarVideo, Quiz, SoftwareSim, DiceGame, AudioNarration
 │   ├── App.tsx                       # Player Shell
 │   └── main.tsx
 ├── Launch-SCORM-Studio.cmd           # Standalone Desktop App Launcher

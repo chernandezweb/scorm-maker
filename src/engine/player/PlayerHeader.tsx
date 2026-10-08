@@ -16,7 +16,9 @@ import {
   FolderOpen,
   ChevronDown,
   Folder,
+  Sparkles,
 } from 'lucide-react';
+import { MediaStudioModal } from '../inspector/MediaStudioModal';
 
 interface PlayerHeaderProps {
   courseTitle: string;
@@ -51,6 +53,9 @@ export const PlayerHeader: React.FC<PlayerHeaderProps> = ({
   const [recentProjects, setRecentProjects] = useState<Array<{ path: string; title: string }>>([]);
   const [isProjectMenuOpen, setIsProjectMenuOpen] = useState(false);
   const [isBrowsingFolder, setIsBrowsingFolder] = useState(false);
+
+  // AI Media Studio Modal State
+  const [isMediaStudioOpen, setIsMediaStudioOpen] = useState(false);
 
   // Check for updates & recent projects on mount
   useEffect(() => {
@@ -277,6 +282,16 @@ export const PlayerHeader: React.FC<PlayerHeaderProps> = ({
           </button>
         )}
 
+        {/* AI Media Studio Button (ElevenLabs Images, Video, UI, Voice) */}
+        <button
+          onClick={() => setIsMediaStudioOpen(true)}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-purple-500/80 bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 text-xs font-bold transition-all shadow-sm active:scale-95"
+          title="ElevenLabs & Multimodal AI Studio: Generate images, videos, UI simulations, and audio"
+        >
+          <Sparkles className="w-3.5 h-3.5 text-purple-300" />
+          <span>AI Media Studio</span>
+        </button>
+
         {/* 1-Click SCORM Export Button (Zero Terminal!) */}
         <button
           onClick={handle1ClickExport}
@@ -350,6 +365,12 @@ export const PlayerHeader: React.FC<PlayerHeaderProps> = ({
           <Maximize2 className="w-4 h-4" />
         </button>
       </div>
+
+      {/* AI Media Studio Modal */}
+      <MediaStudioModal
+        isOpen={isMediaStudioOpen}
+        onClose={() => setIsMediaStudioOpen(false)}
+      />
     </header>
   );
 };

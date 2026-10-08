@@ -1,0 +1,13 @@
+[
+  {
+    "id": "ui-webmail-outlook",
+    "name": "Corporate Outlook Webmail Client",
+    "type": "software-simulation",
+    "hotspots": [
+      "sender-domain",
+      "urgency-banner",
+      "verification-url"
+    ],
+    "status": "integrated in <SoftwareSim />"
+  }
+]

@@ -57,6 +57,18 @@ SCORM 2004 certified interactive quiz question. Automatically reports to `cmi.in
   - `points`: number (default `25`)
   - `options`: array of `{ id: string, text: string, isCorrect: boolean, feedback?: string }`
 
+### `<AvatarVideo>`
+AI-generated video presenter / talking-head avatar player with transparent WebM support.
+- **Props:**
+  - `name`: string (e.g. `"Alex Vance"`)
+  - `role`: string (e.g. `"Security Officer"`)
+  - `src`: optional video path (e.g. `"assets/videos/presenter.webm"`)
+  - `position`: `'bottom-right'` | `'bottom-left'` | `'top-right'` | `'center'` | `'custom'`
+  - `x`: number (0-100 percentage)
+  - `y`: number (0-100 percentage)
+  - `width`: number (e.g. `300`)
+  - `transparent`: boolean (true for transparent WebM floating over slides)
+
 ### `<SoftwareSim>`
 Interactive realistic Outlook webmail client simulation with clickable red flag hotspots and threat reporting.
 
