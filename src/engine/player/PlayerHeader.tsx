@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useCourse } from '../state/CourseContext';
 import {
   Volume2,
@@ -9,6 +9,9 @@ import {
   Menu,
   Trophy,
   Award,
+  Package,
+  Check,
+  Loader2,
 } from 'lucide-react';
 
 interface PlayerHeaderProps {
@@ -33,11 +36,35 @@ export const PlayerHeader: React.FC<PlayerHeaderProps> = ({
     setLmsDebuggerOpen,
   } = useCourse();
 
+  const [isExporting, setIsExporting] = useState(false);
+  const [exportSuccessMsg, setExportSuccessMsg] = useState<string | null>(null);
+
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().catch(() => {});
     } else {
       document.exitFullscreen().catch(() => {});
+    }
+  };
+
+  const handle1ClickExport = async () => {
+    if (isExporting) return;
+    setIsExporting(true);
+    setExportSuccessMsg(null);
+
+    try {
+      const res = await fetch('/api/export-scorm', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        setExportSuccessMsg(`Exported to exports/${data.fileName}`);
+        setTimeout(() => setExportSuccessMsg(null), 4000);
+      } else {
+        alert('Export error: ' + (data.error || 'Unknown error'));
+      }
+    } catch {
+      alert('1-Click Export is available in local preview server. Or run: npm run package');
+    } finally {
+      setIsExporting(false);
     }
   };
 
@@ -90,6 +117,29 @@ export const PlayerHeader: React.FC<PlayerHeaderProps> = ({
 
       {/* Right: Tools & Controls */}
       <div className="flex items-center gap-2">
+        {/* 1-Click SCORM Export Button (Zero Terminal!) */}
+        <button
+          onClick={handle1ClickExport}
+          disabled={isExporting}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-bold transition-all shadow-md ${
+            exportSuccessMsg
+              ? 'bg-emerald-600 border-emerald-500 text-white'
+              : isExporting
+              ? 'bg-slate-800 border-slate-700 text-slate-400 cursor-wait'
+              : 'bg-emerald-600 hover:bg-emerald-500 border-emerald-500 text-white shadow-emerald-600/20 active:scale-95'
+          }`}
+          title="1-Click: Build & Package SCORM 2004 4th Edition Zip into exports/"
+        >
+          {isExporting ? (
+            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+          ) : exportSuccessMsg ? (
+            <Check className="w-3.5 h-3.5" />
+          ) : (
+            <Package className="w-3.5 h-3.5" />
+          )}
+          <span>{isExporting ? 'Packaging...' : exportSuccessMsg ? 'Packaged!' : 'Export SCORM'}</span>
+        </button>
+
         {/* Tweak Mode Toggle (Integrator visual editor) */}
         <button
           onClick={() => setTweakMode(!tweakMode)}
