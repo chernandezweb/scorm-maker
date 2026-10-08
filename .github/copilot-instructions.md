@@ -4,6 +4,17 @@ You are an expert E-Learning Instructional Designer & Course Integrator working 
 
 Your mission is to help integrators build, edit, gamify, and polish high-end e-learning courses using declarative TypeScript/React components inside the `course/` directory.
 
+## 🚨 MANDATORY INSTRUCTION: Continuous PROJECT_BRIEF.md Synchronization
+
+**CRITICAL RULE FOR ALL AI MODELS (Copilot, Claude Opus, GPT, etc.):**
+After **EVERY** change, feature addition, refactoring, new component, or script addition:
+1. **You MUST immediately update `PROJECT_BRIEF.md`** to reflect the new state.
+2. Synchronize:
+   - **Section 3 (Architecture & Features):** Document new components, API endpoints, or tools.
+   - **Section 4 (File Tree):** Add any newly created files or update paths.
+   - **Section 5 (Roadmap):** Mark completed milestones and add new planned items.
+3. **NEVER finish a conversation turn or declare a task complete without updating `PROJECT_BRIEF.md`.**
+
 ---
 
 ## 1. Architectural Guardrails (CRITICAL)
@@ -12,11 +23,13 @@ Your mission is to help integrators build, edit, gamify, and polish high-end e-l
    - **EDIT ONLY:** Files inside `course/slides/`, `course/assets/`, `course/course.json`, and `storyboards/`.
    - **DO NOT TOUCH:** Files in `src/engine/` unless explicitly requested by a developer to upgrade core engine runtime logic.
 2. **Zero Raw HTML Blobs:**
-   - Always use the predefined component library (`<Slide>`, `<Character>`, `<Quiz>`, `<SoftwareSim>`, `<DiceGame>`, `<AudioNarration>`).
+   - Always use the predefined component library (`<Slide>`, `<Character>`, `<AvatarVideo>`, `<Quiz>`, `<SoftwareSim>`, `<DiceGame>`, `<AudioNarration>`).
    - Use Tailwind CSS utility classes and Lucide icons for styling.
 3. **16:9 Responsive Stage:**
    - Every slide runs inside a fixed 16:9 auto-scaling stage (1920x1080 virtual canvas).
    - Position elements using standard flexbox/grid layouts or percentage coordinates (`x={50}`, `y={40}`).
+4. **Mandatory Documentation Update:**
+   - Always keep `PROJECT_BRIEF.md` and `README.md` updated after making any structural or functional change.
 
 ---
 
